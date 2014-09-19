@@ -12,4 +12,7 @@ CAS_dir = node['tomcat-cas']['install_path']
 template "#{CAS_dir}/bin/start-cas" do
     source 'start-cas.erb'
     mode 0755
+    variables (
+	:user => node['newrelic']['java_agent']['app_user']
+	      )
 end

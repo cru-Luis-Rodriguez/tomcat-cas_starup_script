@@ -14,7 +14,7 @@ WEBAPP=cas
 SHUTDOWN_WAIT=15
 
 tomcat_pid() {
-    echo `ps -ef | grep tomcat-cas | grep appadmin | grep -v grep | awk '{print $2}'`
+    echo `ps -ef | grep tomcat-cas | grep <%= @user %> | grep -v grep | awk '{print $2}'`
 }
 
 case "$1" in
@@ -27,7 +27,7 @@ case "$1" in
 	else
 	#start tomcat-cas
             echo $"Starting Tomcat-CAS"
-            /bin/su - appadmin $CATALINA_HOME/bin/startup.sh
+            /bin/su - <%= @user %> $CATALINA_HOME/bin/startup.sh
 	fi
 }
 ;;
@@ -37,7 +37,7 @@ case "$1" in
         if [ -n "$pid" ]
         then
             echo $"Stopping Tomcat-CAS"
-            /bin/su - appadmin $CATALINA_HOME/bin/shutdown.sh
+            /bin/su - <%= @user %> $CATALINA_HOME/bin/shutdown.sh
         else
 	 echo "tomcat-cas is not running"
         fi
@@ -57,7 +57,7 @@ case "$1" in
         if [ -n "$pid" ]
         then
             echo $"Stopping Tomcat-CAS"
-            /bin/su - appadmin $CATALINA_HOME/bin/shutdown.sh
+            /bin/su - <%= @user %> $CATALINA_HOME/bin/shutdown.sh
         
 let kwait=$SHUTDOWN_WAIT
     count=0
@@ -84,7 +84,7 @@ let kwait=$SHUTDOWN_WAIT
         else
         #start tomcat-cas
             echo $"Starting Tomcat-CAS"
-            /bin/su - appadmin $CATALINA_HOME/bin/startup.sh
+            /bin/su - <%= @user %> $CATALINA_HOME/bin/startup.sh
         fi
 }
         ;;
